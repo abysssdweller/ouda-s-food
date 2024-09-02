@@ -1,0 +1,51 @@
+<div class="home-container">
+    <!-- New section for business information -->
+    <div class="business-info">
+      <h1>Welcome to Ouida's Food!</h1>
+      <p>
+        At Ouda's Food, we offer a variety of delicious Mediterranean snacks and 
+        dishes made from the finest ingredients. From crispy pita chips to 
+        mouthwatering hummus, our products are crafted with care to ensure the 
+        highest quality and taste. Explore our selection and enjoy the best of 
+        Mediterranean cuisine!
+      </p>
+    </div>
+  <div class="products">
+    <div class="products__header">
+      <h2>New Products</h2>
+    </div>
+    <div *ngIf="loading" class="products__loading">
+      <ng-template #indicatorTemplate>
+        <i
+          nz-icon
+          nzType="loading"
+          [ngStyle]="{ 'font-size': '2rem', margin: '0 auto' }"
+        ></i>
+      </ng-template>
+      <nz-spin nzSimple [nzIndicator]="indicatorTemplate"> </nz-spin>
+    </div>
+    <div class="products__list" *ngIf="!loading">
+      <app-product-card
+        *ngFor="let n of products"
+        [id]="n.id"
+        [title]="n.title"
+        [image]="n.image"
+        [price]="n.price"
+        [short_desc]="n.short_desc"
+        [category]="n.category"
+        [quantity]="n.quantity"
+        [onAdd]="cartService.addProduct.bind(cartService)"
+      >
+      </app-product-card>
+    </div>
+  </div>
+  <div class="load-products">
+    <button
+      nz-button
+      (click)="showMoreProducts()"
+      [nzLoading]="additionalLoading"
+    >
+      Show more
+    </button>
+  </div>
+</div>
